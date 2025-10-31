@@ -9,4 +9,31 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   session: { strategy: "jwt" },
+  trustHost: true,
+  callbacks: {
+    async redirect({ url, baseUrl }) {
+      // If it's a relative URL starting with /
+      if (url.startsWith("/")) {
+        // Don't redirect to signin page - extract callbackUrl if present
+        if (url.startsWith("/api/auth/signin")) {
+          const urlObj = new URL(url, baseUrl);
+          const callbackUrl = urlObj.searchParams.get("callbackUrl");
+          return callbackUrl || baseUrl;
+        }
+        return `${baseUrl}${url}`;
+      }
+
+      // If it's an absolute URL
+      try {
+        const targetUrl = new URL(url);
+        if (targetUrl.origin === baseUrl) {
+          return url;
+        }
+      } catch {
+        // ignore malformed target URLs
+      }
+
+      return baseUrl;
+    },
+  },
 };
