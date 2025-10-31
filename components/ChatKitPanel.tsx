@@ -344,14 +344,14 @@ export function ChatKitPanel({
   }
 
   return (
-    <div className="relative pb-8 flex h-[90vh] w-full rounded-2xl flex-col overflow-hidden bg-white shadow-sm transition-colors dark:bg-slate-900">
+    <div className="relative pb-8 flex h-[85vh] w-full rounded-3xl flex-col overflow-hidden bg-white/90 shadow-2xl shadow-purple-500/20 backdrop-blur-xl border border-white/20 transition-all duration-300 hover:shadow-purple-500/30 dark:bg-slate-900/90 dark:border-white/10">
       <ChatKit
         key={widgetInstanceKey}
         control={chatkit.control}
         className={
           blockingError || isInitializingSession
-            ? "pointer-events-none opacity-0"
-            : "block h-full w-full"
+            ? "pointer-events-none opacity-0 transition-opacity duration-300"
+            : "block h-full w-full opacity-100 transition-opacity duration-300"
         }
       />
       <ErrorOverlay
