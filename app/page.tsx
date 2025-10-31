@@ -8,7 +8,7 @@ export default async function Home() {
   const session = await getServerSession(authOptions);
 
   if (!session) {
-    const requestHeaders = headers();
+    const requestHeaders = await headers();
     const host = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host");
     const protocol = requestHeaders.get("x-forwarded-proto") ?? "https";
     const fallbackUrl =

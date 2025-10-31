@@ -9,7 +9,6 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   session: { strategy: "jwt" },
-  trustHost: true,
   callbacks: {
     async redirect({ url, baseUrl }) {
       // If it's a relative URL starting with /
